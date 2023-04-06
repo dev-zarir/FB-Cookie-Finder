@@ -1,9 +1,80 @@
-MDScreen:
+Screen:
+    CustomToolBar:
+        id: toolbar
+        title: 'FB Cookie Finder'
+        pos_hint: {'top': 1}
+        md_bg_color: app.theme_cls.primary_color
+    ScreenManager:
+        id: screenmanager
+        Screen:
+            name: 'homescreen'
+            MDTextField:
+                id: email_input
+                hint_text: "Email address or Phone Number"
+                helper_text: "The email or number which you used in facebook"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.62}
+                size_hint: (0.9, None)
+                icon_left: "email"
+            MDTextField:
+                id: pass_input
+                hint_text: "Password"
+                helper_text: "The password which you used in facebook"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                size_hint: (0.9, None)
+                icon_left: "key-variant"
+                password: True
+            MDIconButton:
+                icon: "eye-off"
+                pos_hint: {'center_y': 0.5}
+                pos: pass_input.width - self.width + dp(30), 0
+                theme_text_color: "Hint"
+                on_release:
+                    self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                    pass_input.password = not pass_input.password
+            MDRectangleFlatButton:
+                id: submit_btn
+                text: 'Get Cookie'
+                text_color: '#ffffff'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.38}
+                on_release: app.getCookieThread()
+                md_bg_color: app.theme_cls.primary_color
+        Screen:
+            name: 'resultscreen'
+            MDTextField:
+                id: cookie_input
+                multiline: True
+                readonly: True
+                hint_text: "Your Facebook Cookie"
+                mode: "rectangle"
+                size_hint: (0.9, 0.3)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.63}
+            MDFillRoundFlatButton:
+                id: copybtn
+                text: 'Copy Cookie'
+                text_color: '#ffffff'
+                size_hint: (0.9, None)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+                on_release: app.copyCookieThread()
+            MDRoundFlatButton:
+                id: resetbtn
+                text: 'Back'
+                size_hint: (0.9, None)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+                on_release: app.resetState()
+            MDRoundFlatButton:
+                id: fbactivebtn
+                text: 'Open FB 24H Active Bot'
+                size_hint: (0.9, None)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.2}
+                on_release: app.open_fbactive()
     MDLabel:
-        text: 'Hello World!'
+        id: copyright_text
+        text: 'Made by [color=#0c6][ref=https://facebook.com/100075924800901]ZARIR[/ref][/color] on behalf of [color=#0c6][ref=https://programsmart.xyz/]Programs Mart[/ref][/color]'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.05}
         halign: 'center'
-        pos_hint: {'center_x':0.5, 'center_y': 0.6}
-    MDLabel:
-        text: 'THIS IS FB COOKIE FINDER'
-        halign: 'center'
-        pos_hint: {'center_x':0.5, 'center_y': 0.4}
+        markup: True
+
+
+
